@@ -31,7 +31,7 @@ export default function TelescopePage() {
                     <div className="space-y-6 text-justify">
                         <p>
                             Refraction occurs when light passes from one medium to another with different optical densities. 
-                            Snell's law governs this behavior:
+                            Snell&apos;s law governs this behavior:
                         </p>
                         <Equation text="n_1 \sin \theta_1 = n_2 \sin \theta_2" />
                         

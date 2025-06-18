@@ -8,17 +8,17 @@ export default function Home() {
   return (
     <main className={styles.page}>
       <div className={styles.container}>
-        <h1 className={styles.header}>Kepler's Laws</h1>
+        <h1 className={styles.header}>Kepler&apos;s Laws</h1>
         <div className="text-gray-300 text-center max-w-2xl mb-6">
           <p className="mb-4">
             Johannes Kepler (1571-1630) was a German astronomer who discovered three fundamental laws 
             that describe planetary motion. His work revolutionized our understanding of the solar system 
-            and laid the foundation for Newton's law of universal gravitation.
+            and laid the foundation for Newton&apos;s law of universal gravitation.
           </p>
           <ol className={styles.lawlist}>
             <li><strong>Law of Ellipses:</strong> Planets orbit the sun in elliptical paths with the sun at one focus.</li>
             <li><strong>Law of Equal Areas:</strong> A line connecting a planet to the sun sweeps equal areas in equal time intervals.</li>
-            <li><strong>Harmonic Law:</strong> The square of a planet's orbital period is proportional to the cube of its average distance from the sun.</li>
+            <li><strong>Harmonic Law:</strong> The square of a planet&apos;s orbital period is proportional to the cube of its average distance from the sun.</li>
           </ol>
         </div>
         
@@ -33,7 +33,7 @@ export default function Home() {
         <div className="text-gray-300 max-w-4xl mx-auto mt-8 mb-8">          
           <div className="space-y-6 text-justify">
             <p>
-              Kepler's laws emerge from the fundamental principles of celestial mechanics and can be derived from Newton's laws of motion and universal gravitation. The gravitational force between two masses follows the inverse square law:
+              Kepler&apos;s laws emerge from the fundamental principles of celestial mechanics and can be derived from Newton&apos;s laws of motion and universal gravitation. The gravitational force between two masses follows the inverse square law:
             </p>
             <Equation text="F = G\frac{m_1 m_2}{r^2}" />
             
@@ -53,12 +53,12 @@ export default function Home() {
             <Equation text="e = \sqrt{1 + \frac{2EL^2}{GMm^3}}" />
             
             <p>
-              Kepler's second law manifests through conservation of angular momentum. The areal velocity (area swept per unit time) remains constant:
+              Kepler&apos;s second law manifests through conservation of angular momentum. The areal velocity (area swept per unit time) remains constant:
             </p>
             <Equation text="\frac{dA}{dt} = \frac{L}{2m} = \frac{r^2\dot{\theta}}{2} = \text{constant}" />
             
             <p>
-              At perihelion (closest approach) and aphelion (farthest point), the planet's velocity can be calculated using energy conservation:
+              At perihelion (closest approach) and aphelion (farthest point), the planet&apos;s velocity can be calculated using energy conservation:
             </p>
             <Equation text="v_{peri} = \sqrt{\frac{GM(1+e)}{a(1-e)}}" />
             <Equation text="v_{aph} = \sqrt{\frac{GM(1-e)}{a(1+e)}}" />
@@ -69,7 +69,7 @@ export default function Home() {
             <Equation text="M = n(t - t_0) = \frac{2\pi}{T}(t - t_0)" />
             
             <p>
-              where <em>n</em> is the mean motion. The eccentric anomaly <em>E</em> relates to the mean anomaly through Kepler's equation:
+              where <em>n</em> is the mean motion. The eccentric anomaly <em>E</em> relates to the mean anomaly through Kepler&apos;s equation:
             </p>
             <Equation text="M = E - e\sin E" />
             
