@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Equation, { EquationInline } from '../wide/equation';
 
 
@@ -8,9 +8,10 @@ export default function RefractionDemo() {
     const [ior1, setIor1] = useState(1.0); // Air
     const [ior2, setIor2] = useState(1.5); // Glass
     const [incidentAngle, setIncidentAngle] = useState(30);
+    const [refractedAngle, setRefractedAngle] = useState(null);
 
-    const calculateRefraction = () => {
-        const incidentRad = (incidentAngle * Math.PI) / 180;
+    const calculateRefraction = (incident) => {
+        const incidentRad = (incident * Math.PI) / 180;
         const sinRefracted = (ior1 / ior2) * Math.sin(incidentRad);
         
         if (Math.abs(sinRefracted) > 1) {
@@ -20,10 +21,45 @@ export default function RefractionDemo() {
         return Math.asin(sinRefracted) * (180 / Math.PI);
     };
 
-    const refractedAngle = calculateRefraction();
+    const calculateIncidentFromRefracted = (refracted) => {
+        const refractedRad = (refracted * Math.PI) / 180;
+        const sinIncident = (ior2 / ior1) * Math.sin(refractedRad);
+        
+        if (Math.abs(sinIncident) > 1) {
+            return null;
+        }
+        
+        return Math.asin(sinIncident) * (180 / Math.PI);
+    };
+
+    const getMaxRefractedAngle = () => {
+        // Maximum refracted angle occurs when incident angle is 90°
+        const maxSinRefracted = ior1 / ior2;
+        if (maxSinRefracted > 1) return 90;
+        return Math.asin(maxSinRefracted) * (180 / Math.PI);
+    };
+
+    const isTotalInternalReflection = () => {
+        const calculated = calculateRefraction(incidentAngle);
+        return calculated === null;
+    };
+
+    // Update refracted angle when incident angle or IORs change
+    useEffect(() => {
+        setRefractedAngle(calculateRefraction(incidentAngle));
+    }, [incidentAngle, ior1, ior2]);
+
+    const handleRefractedAngleChange = (newRefractedAngle) => {
+        const newIncident = calculateIncidentFromRefracted(newRefractedAngle);
+        if (newIncident !== null) {
+            setIncidentAngle(newIncident);
+        }
+    };
+
+    const maxRefractedAngle = getMaxRefractedAngle();
 
     return (
-        <div className="refraction-demo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px' }}>
+        <div className="refraction-demo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
             <svg width="600" height="400" viewBox="0 0 600 400">
                 {/* Interface line - now vertical */}
                 <line x1="300" y1="0" x2="300" y2="400" stroke="#333" strokeWidth="2" />
@@ -93,25 +129,33 @@ export default function RefractionDemo() {
                 </div>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                    <label><EquationInline text={`\\theta _i = ${incidentAngle} \\deg`} /></label>
+                    <label><EquationInline text={`\\theta _i = ${incidentAngle.toFixed(1)} \\deg`} /></label>
                     <input 
                         type="range" 
                         min="0" 
                         max="89" 
+                        step="0.1"
                         value={incidentAngle}
-                        onChange={(e) => setIncidentAngle(parseInt(e.target.value))}
+                        onChange={(e) => setIncidentAngle(parseFloat(e.target.value))}
                     />
                 </div>
                 
-                <div style={{ marginLeft: '20px', fontSize: '16px', fontWeight: 'bold' }}>
-                    {refractedAngle !== null ? (
-                        <span>Refracted Angle: {refractedAngle.toFixed(1)}°</span>
-                    ) : (
-                        <span style={{ color: 'red' }}>Total Internal Reflection</span>
-                    )}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label>
+                        <EquationInline text={`\\theta _r = ${isTotalInternalReflection() ? 'N/A' : refractedAngle?.toFixed(1) + ' \\deg'}`} />
+                    </label>
+                    <input 
+                        type="range" 
+                        min="0" 
+                        max={maxRefractedAngle.toFixed(1)} 
+                        step="0.1"
+                        value={isTotalInternalReflection() ? 0 : refractedAngle || 0}
+                        onChange={(e) => handleRefractedAngleChange(parseFloat(e.target.value))}
+                        disabled={isTotalInternalReflection()}
+                        style={{ opacity: isTotalInternalReflection() ? 0.5 : 1 }}
+                    />
                 </div>
             </div>
         </div>
     );
 }
-

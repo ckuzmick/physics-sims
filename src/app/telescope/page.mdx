@@ -1,0 +1,206 @@
+import RefractionDemo from "@/components/demos/refraction";
+import Equation from "@/components/wide/equation";
+import { EquationInline } from "@/components/wide/equation";
+import LensBundleDemo from "@/components/demos/telescope";
+import AngleConversions from "@/components/demos/conversions";
+import "@/styles/demo.css";
+
+<main>
+
+# Telescope Optics
+
+## Introduction
+
+In this notebook we will explore how rays interact with optical surfaces and how these interactions determine the position of images on a focal plane.
+
+We will cover:
+
+- *Reflection and Refraction*: How rays are bent (or bounced) by optical surfaces.
+- *Central Ray Principle*: For an ideal thin lens, a ray passing through the optical center is undeviated. This property helps us relate the displacement of the image on the focal plane to the angle at which light arrives.
+- *Plate Scale*: the correspondence between angle on the sky and position on the focal plane.
+- *f-number*, also designated $f/\#$,  the ratio of the diameter to the focal length of an optical system.  
+- *Depth of Focus*: the distance the focal plane can move before degrading the image by a specific amount of blurring.
+
+## Incoming Rays from a distant source are parallel.
+
+Compared to the other length scales in the system, such as the telesscope diameter and the focal length of the system, astronomical sources are essentially infinitely far away. This means the rays that make it onto the mirror are a cylindrical bundle of parallel rays.
+
+Light from a different object, from another location on the sky, strike the mirror as a different cylindrical bundle coming from a different direction.
+
+Information about the position of a source on the sky is carried by the angle of arrival of the incoming (parallel) rays.
+
+## How Optical Surfaces Affect Rays.
+
+Optical Surfaces: Reflection and Refraction
+
+**Refraction:** When a ray passes from one medium to another (for example, from air into glass), its speed changes and the ray bends. This is described by Snell’s law:
+
+<div className="equation"><Equation text="n_1 \sin(\theta_1) = n_2 \sin(\theta_2)" /></div>
+
+In lenses, refraction can be used to focus light, bringing rays arriving at a common angle to a focus. Parallel rays that are further off-axis are bent by larger angle, in precisely the right way to have all the rays that arrive at a common angle land at the same location in the focal plane. This makes a bright spot on the focal plane for each source on the sky.
+
+<div className="demo"><RefractionDemo /></div>
+
+**Reflection:** When a ray strikes a mirror or any reflective surface, it bounces off such that the angle of incidence equals the angle of reflection. A curved mirror can also bring rays to a focus. Curved mirrors are typically some kind of conic section- spherical, parabolic, or hyperbolic. Each has their advantages and disadvantages, which are a bit beyond the scope of our course.
+
+Modern large telescopes use curved mirrors rather than lenses to bring light to a focus. The reasons for this are:
+
+1. it's cheaper to fabricate one precision surface than two, and
+2. transmissive lenses suffer from "chromatic aberration" due to wavelength-dependence of the index of refraction,  <EquationInline text="n=n(\lambda)"/>. Mirrors don't have this problem.
+
+## The Role of the Central Ray
+
+In an ideal thin lens, the ray that passes through the lens center does not bend. This principle is crucial: for an object at infinity, the only deviation comes from the angle at which the ray arrives. The displacement <EquationInline text="y"/> on the focal plane is given by:
+
+<EquationInline text="y=f \cdot \tan(\theta)"/>. This relationship and the central ray are illustrated in the Figure below.
+
+<img src="central-ray-demo.png" alt="Central Ray Demo" style={{ width: '100%' }} />
+
+<div className="caption">Figure: Cental Ray. The central ray pivots about the center of the optical element, and makes an angle <EquationInline text="\theta"/> with the optical axis. This angle and the focal length <EquationInline text="f"/> determine the position <EquationInline text="y"/> of the corresponding image on the focal plane. All other rays from the same source arrive at the same angle as the central ray.</div>
+
+For small angles (in radians), since <EquationInline text="\tan{\theta}=\theta"/>, we have  <EquationInline text="y=f\theta" /> . Remember that <EquationInline text="\theta"/> has to be in radians.
+
+Thus, the focal length <EquationInline text="f"/> and the incoming angle <EquationInline text="\theta"/> determine where the image appears on the focal plane.
+
+**Remember This:** Telescopes convert the angle of arrival of photons into position in the focal plane.
+
+## Angle Conversions
+
+Going all the way around the unit circle, we rotate through <EquationInline text="360^{\circ}"/>.
+
+That also corresponds to <EquationInline text="2\pi"/> radians. So in general the conversion from degrees to radians entails multiplying by 1, where <EquationInline text="1 = 2\pi / 360"/>, so to convert angles from degrees to radians:
+
+<div className="equation"><Equation text="\theta_{(\text{rad})} = \theta_{(\deg)} \times \frac{2\pi}{360^{\circ}}" /></div>
+
+Astronomers tend to use arcseconds to measure the angular dimensions of most things on the sky. One degree subtends 60 arcminutes and one arcminute subtends 60 arcseconds, so one arcsec = 1/3600 degrees. That's a pretty small angle.
+
+One arcsec corresponds to <EquationInline text="4.85 \times 10^{-6} \ \text{rad} = 4.85 \ \text{microradians} = 4.85 \ \mu\ \text{rad}"/>.
+
+**Some things to remember:**
+- 180 degrees is <EquationInline text="\pi"/> radians
+- One arcsecond is <EquationInline text="1/3600 \deg"/> and corresponds to <EquationInline text="4.85\  \mu \ \text{rad}"/>.
+
+Use the interactive angle converter below to practice converting between degrees and radians, and arcseconds and microradians. Do some conversions on your own and use this to check your work.
+
+<div className="demo"><AngleConversions /></div>
+
+## Small Angle Approximation and Plate Scale
+
+For small angles, <EquationInline text="\tan(\theta) \approx \theta"/> (with <EquationInline text="\theta"/> expressed in radians).
+
+The **plate scale** of a telescope tells us how many microns on the focal plane corresponds to one arcsecond on the sky.
+
+The focal length <EquationInline text="f"/> determines this plate scale, where <EquationInline text="\delta y = f \delta \theta"/>.
+
+Convince yourself that if one arcsec corresponds to <EquationInline text="4.86 \ \mu\text{rad}"/> (microradians), that the plate scale on a telescope (in microns per arcsec) is just:
+
+<div className="equation"><Equation text="\frac{\delta y}{\delta \theta} = 4.86 \times f \text{ (focal length in meters)}" /></div>
+
+The Rubin telescope in Chile has primary mirror with a diameter of 8.5 meters, at <EquationInline text="f/1.23"/>.
+
+1. What is the focal length of the Rubin telescope? Be sure to include units!
+2. The CCD detectors that pave the Rubin focal plane have pixels that are <EquationInline text="10 \ \mu\text{m} \times 10 \ \mu\text{m}"/>. What angle on the sky subtends the side length of one Rubin pixel?
+3. The DESI instrument uses robots to place optical fibers beneath the images of celestial sources of interest. The diameter of those fibers is <EquationInline text="106 \ \mu\text{m}"/>, and they subtend <EquationInline text="1.5"/> arcseconds on the sky. What is the focal length of the DESI telescope?
+
+*(Rubin camera and DESI robot images goes here)*
+
+4. Open up a new code cell below. See if you can get AI to generate a Python cell that can help you assess when the <EquationInline text="\sin(\theta) = \theta"/> approximation fails at the 10%, 5%, and 1% level. Check the results! (Remember that <EquationInline text="\theta"/> needs to be in radians.)
+
+## f-number
+
+Telescopes are characterized by:
+- The diameter <EquationInline text="D"/> of their collecting aperture
+- Their focal length <EquationInline text="f"/>
+- Their Field of View (FOV)
+
+It's common however to use the dimensionless ratio called the **f-number**, often abbreviated <EquationInline text="f/\#"/>, where:
+
+<div className="equation"><Equation text="f/\# = f/D" /></div>
+
+where the first <EquationInline text="f"/> in this expression is f-number and the second one is focal length(!). 
+
+Note the awkward degeneracy of notation where <EquationInline text="f"/> is used for both <EquationInline text="f"/>-number and focal length. I'm conforming to standard conventions here, sorry! 
+
+There are two ways to tell whether focal length or f-number are being referenced:
+1. **Focal length** has units of length, and **f-number** is dimensionless
+2. Folks usually write <EquationInline text="f/\# = 20"/> or <EquationInline text="f/20"/>, pronounced "ef twenty" when referring the latter quantity
+
+A 1 meter diameter telescope with a 10 meter focal length is called an <EquationInline text="f/10"/> ("ef-ten") optical system.
+
+This turns out to be useful because (as any amateur photographer can tell you), if you point the telescope at something with uniform surface brightness, like the moon, the photon arrival rate per square micron on the focal plane depends only on the <EquationInline text="f"/>-number and not on the aperture. 
+
+An optical system with a low <EquationInline text="f"/>-number delivers more photons per second per square micron to the focal plane than one with a large <EquationInline text="f"/>-number, for things that aren't point sources. For imaging things that are point sources, it's the diameter (collecting area) that matters.
+
+## Example: The Magellan Telescopes
+
+The twin Magellan telescopes at the Las Campanas Observatory in Chile are a great real-world example. They are designed with an <EquationInline text="f/11"/> system and have a primary mirror diameter of <EquationInline text="D = 6.5"/> meters.
+
+<img src="magellan-telescopes.png" alt="Magellan Telescopes" style={{ width: '100%' }} />
+
+<div className="caption">Image courtesy of Carnegie Observatories</div>
+
+The focal length of a Magellan telescope is therefore:
+
+<div className="equation"><Equation text="f = 6.5 \text{ m} \times 11 \approx 71.5 \text{ m}" /></div>
+
+Using our previous formula for the displacement on the focal plane, go ahead and compute the plate scale for this telescope, in microns per arcsec.
+
+For more details on the Magellan Telescopes, please see [Magellan Telescopes](https://www.lco.cl/magellan-telescopes/).
+
+## An Interactive Ray Tracing Simulator!
+
+This code cell produces a figure along with two slider bars that you can adjust to change the focal length and the angle of arrival of a bundle of rays.
+
+Be sure to 'execute' the cell by clicking on the arrow symbol in the upper left, or by hitting SHIFT-ENTER.
+
+The lens is indicated by a vertical dashed blue line, and the focal plane by a red vertical dashed line.
+
+<div className="demo"><LensBundleDemo /></div>
+
+## Simulation Exercises
+
+Using the ray-tracing simulation given above, answer the following questions:
+
+1. Try playing with the angle of incidence to get a feel for how this all works. Slide the control back and forth to see how the position of the image depends on the input angle of the (parallel) rays. Now set the input angle to 1 degree and change the focal length. It acts like a lever arm and the principal ray's intersection with the center of the lens is the pivot point.
+
+2. Set up the simulator with an input angle of 1 degree, and a focal length of 10 meters. Think about the triangle that is formed by the central ray, that passes through y=0 at the input. Does that triangle conform to <EquationInline text="y = f \tan(\theta)"/>, where <EquationInline text="f"/> is the focal length and <EquationInline text="y"/> is the image location?
+
+3. Predict where the image will land if <EquationInline text="f"/> is reduced to 5 meters, then try it. Keep the input angle at 1 degree. Was your prediction accurate? What about <EquationInline text="f = 20"/> meters?
+
+4. Assuming the diameter of the mirror here is 2 meters, what is the f-number of the beam when the focal length is 5 meters? What about 10 meters?
+
+5. For a telescope with the focal length of the Magellan system, namely 71.5 meters, how far off-axis (in the focal plane) is an image formed of an object that is 1 degree off-axis? Uh... wait. You can't set the focal length long enough using the slider? Is there a scaling argument you can use? Be sure to give units, and compare your answer to the Magellan plate scale derived earlier. (We're using a simplifying approximation of the two-mirror reflecting Magellan telescope by modeling it as a simple thin lens).
+
+6. Does this answer depend on the aperture of the Magellan mirror? Why or why not? What main advantage does a larger mirror afford? Hint- cost is not the answer!
+
+## Depth of Focus
+
+Look at the diagram above, and think about the cross-section of the beam as it approaches the focus. It starts out as a circle with the diameter of the telescope aperture, and shrinks to a minimum at the focus.
+
+Compute how far the Magellan telescope can be out of focus (by a displacement of the focal plane along the optical axis) to have the diameter of that beam be 2 arcseconds. That's for an <EquationInline text="f/11"/> incoming beam. Now repeat the exercise for the tolerable defocus for the <EquationInline text="f/1.2"/> Rubin telescope. Which is more demanding for the stability of the focusing system?
+
+## Blurred Images
+
+OK, the bundle of rays that arrive at the input pupil (diameter) of a ground-based telescope aren't *exactly* all parallel. Thermal structure in the atmosphere above the telescope perturb their angle-of-arrival somewhat, and the resulting image blur is what astronomers call 'seeing'.
+
+Imagine making a histogram of the distribution of angles of arrival from some distant source. That distribution tends towards a Gaussian if we average over a sufficiently long interval (typically more than a few milliseconds). The Full Width at Half Maximum (FWHM) of that 2-d profile is a measure of image quality, and values of an arcsecond are typical.
+
+That limits the angular resolution of optical and infrared ground-based astronomy to be much worse than the limit one would infer from diffraction, where the wave properties of light come into play.
+
+The diffraction limit of a telescope of diameter <EquationInline text="D"/> is <EquationInline text=" \theta_{\text{diff}} = 1.22 \lambda/D"/> where <EquationInline text="\lambda"/> is the wavelength. Here, <EquationInline text="\theta"/> is in radians. Apart from the factor of 1.22, you could have guessed this from dimensional analysis alone!
+
+Taking a wavelength of 1 micron as representative of optical-infrared astronomy, what is the anticipated diffraction limit for the Magellan telescope? How does this compare to typical seeing values of 1 arcsec?
+
+## Even Fuzzier Satellites?
+
+While stars are essentially infinitely far away, Starlink satellites aren't. They orbit about 300 km above the surface of the Earth, and are readily detectable by reflected sunlight. Assuming these satellites are much smaller than the diameter of the Magellan telescope, which is in fact the case, what angle does the telescope mirror subtend as seen from a Starlink satellite directly overhead? Express your answer in arcseconds. This is the range of angles at which light from the satellite enters the telescope. What does that imply about the distribution of light on the focal plane?  
+
+Based on your answer above, and the typical image FWHM from seeing, think about what kind of image the satellite would make on the focal plane. Describe it. If the satellite were moving on the sky at the same apparent rate as stars, and the telescope was tracking the sky, could you tell them apart? How?
+
+In practice the satellites are moving at a whopping 7 km/s and streak across the images, making them rather a nuisance. The cross-track width of the streak is consistent with the number you computed above.
+
+From [NOIRlab](https://noirlab.edu/public/images/iotw1946a//), nineteen Starlink streaks in a single image:
+
+<img src="noirlab-starlink.png" alt="Starlink Streaks" style={{ width: '100%' }} />
+
+</main>
