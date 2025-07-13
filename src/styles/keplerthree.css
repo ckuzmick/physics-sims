@@ -1,0 +1,40 @@
+body {
+    background: #222233;
+    color: #f3f3f3;
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 48px 32px 48px;
+}
+
+h1 {
+    font-size: 3.5em;
+    text-align: center;
+    margin-bottom: 0.5em;
+    letter-spacing: 0.04em;
+    color: #ffe066;
+    text-shadow: 0 2px 16px #000a;
+}
+
+p, ul {
+    font-size: 1.25em;
+    line-height: 1.7;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+ul {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.7em;
+}
